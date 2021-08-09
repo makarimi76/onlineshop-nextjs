@@ -11,3 +11,15 @@ export const getCategorizedProducts = async (categories, limit) => {
 
     return categorizedProducts
 }
+
+export const getProducts = async () => {
+    const res = await axios.get(`/products`)
+
+    return res.data
+}
+
+export const getProduct = async (id) => {
+    const res = await axios.get(`/products/${id}`)
+
+    return res.data
+}

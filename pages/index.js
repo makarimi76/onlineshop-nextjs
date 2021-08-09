@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function Home({ categorizedProducts }) {
+export default function HomePage({ categorizedProducts }) {
   const classes = useStyles()
 
   return (
