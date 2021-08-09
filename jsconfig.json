@@ -2,11 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "api/*": ["api/*"],
       "components/*": ["components/*"],
       "configs/*": ["configs/*"],
       "styles/*": ["styles/*"],
       "themes/*": ["themes/*"],
       "layouts/*": ["layouts/*"],
+      "utils/*": ["utils/*"],
     }
   }
 }
