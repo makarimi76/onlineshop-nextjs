@@ -1,9 +1,11 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "styles/*": ["styles/*"],
-        "theme/*": ["theme/*"]
-      }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["components/*"],
+      "styles/*": ["styles/*"],
+      "themes/*": ["themes/*"],
+      "layouts/*": ["layouts/*"],
     }
   }
+}
