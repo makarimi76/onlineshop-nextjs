@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import Router from 'next/router';
+import Link from 'next/link'
+import Spinner from 'components/Backdrop';
+
 // UI
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -11,6 +16,9 @@ import { IoMdCart } from 'react-icons/io'
 const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     button: {
         marginRight: theme.spacing(2)
@@ -39,8 +47,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Header = () => {
+    const classes = useStyles()
 
-    const classes = useStyles();
+    const [loading, setLoading] = useState(false)
+    Router.onRouteChangeStart = () => {
+        setLoading(true)
+    }
+
+    Router.onRouteChangeComplete = () => {
+        setLoading(false)
+    }
 
     const cart = (
         <Badge badgeContent={3} className={classes.badge} color="secondary">
@@ -52,27 +68,28 @@ const Header = () => {
         <AppBar position="sticky">
             <Toolbar>
                 <Typography variant="h6" className={classes.title}>
-                    <a to='/'>
+                    <Link href='/'>
                         فروشگاه
-                    </a>
+                    </Link>
+                    <Spinner open={loading} />
                 </Typography>
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                    <a to='/admin/login'><Button color="inherit" className={classes.button}>مدیریت</Button></a>
-                    <a to='/shop/cart'>
+                    <a href='/admin/login'><Button color="inherit" className={classes.button}>مدیریت</Button></a>
+                    <Link href='/cart'>
                         <Button color="inherit">
                             {cart}
                             سبد خرید
                         </Button>
-                    </a>
+                    </Link>
                 </div>
                 <div className={classes.sectionMobile}>
-                    <a to='/admin/login'><Button color="inherit" className={classes.button}>مدیریت</Button></a>
-                    <a to='/shop/cart'>
+                    <a href='/admin/login'><Button color="inherit" className={classes.button}>مدیریت</Button></a>
+                    <Link href='/cart'>
                         <Button color="inherit">
                             {cart}
                         </Button>
-                    </a>
+                    </Link>
                 </div>
             </Toolbar>
         </AppBar>
