@@ -1,14 +1,47 @@
 import Head from 'components/Head'
 import ShopLayout from 'layouts/Shop.layout'
+import ProductItem from 'components/shop/ProductsItem'
 
-import { getCategories } from 'api/categories'
+// API
+import { getCategories } from 'api/categories.api'
+import { getCategorizedProducts } from 'api/products.api'
 
-export default function Home({ categories }) {
-  console.log(categories)
+import { HOME_CATEGORIZED_PRODUCTS_LIMIT } from 'configs'
+
+// UI
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+
+const useStyles = makeStyles((theme) => ({
+  box: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2)
+  }
+}))
+
+export default function Home({ categorizedProducts }) {
+  const classes = useStyles()
+
   return (
     <>
       <Head title="صفحه اصلی" />
       <ShopLayout>
+        {categorizedProducts.map((item, index) => (
+          <div key={index}>
+            <Typography variant="h6">کالا های گروه {item.name.replace('کالاهای', '')}</Typography>
+            <Grid container spacing={2} className={classes.box}>
+              {
+                item.data.map(product => (
+                  <Grid key={product.id} item xs={12} sm={6} md={6} lg={4} xl={3} >
+                    <ProductItem product={product} />
+                  </Grid>
+                ))
+              }
+            </Grid>
+          </div>
+        ))
+        }
 
       </ShopLayout>
     </>
@@ -17,9 +50,10 @@ export default function Home({ categories }) {
 
 export async function getStaticProps() {
   const categories = await getCategories()
+  const categorizedProducts = await getCategorizedProducts(categories, HOME_CATEGORIZED_PRODUCTS_LIMIT)
 
   return {
-    props: { categories },
-    revalidate: 1,
+    props: { categorizedProducts },
+    revalidate: 1
   }
 }

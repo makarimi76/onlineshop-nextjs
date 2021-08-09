@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export default function CustomHead({ title, description, keywords }) {
+export default function MyHead({ title, description, keywords }) {
     return (
         <Head>
             <title>{title} | فروشگاه آنلاین</title>
@@ -10,7 +10,7 @@ export default function CustomHead({ title, description, keywords }) {
     )
 }
 
-CustomHead.defaultProps = {
+MyHead.defaultProps = {
     title: 'فروشگاه آنلاین',
     description: 'فروشگاه آنلاین با نکست جی اس',
     keywords: 'online, shop, nextjs',
