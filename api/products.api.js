@@ -19,7 +19,12 @@ export const getProducts = async () => {
 }
 
 export const getProduct = async (id) => {
-    const res = await axios.get(`/products/${id}`)
+    try {
+        const res = await axios.get(`/products/${id}`)
 
-    return res.data
+        return res.data
+
+    } catch (err) {
+        // console.log('err', err)
+    }
 }
